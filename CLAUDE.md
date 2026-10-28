@@ -1,0 +1,35 @@
+# DUYO — Why pay for pixels?
+
+- 제품명은 항상 DUYO. 영구 무료·MIT·서버/광고/계정/추적/결제 없음.
+- 응답/기술·하네스 문서는 한국어. 공개 문서·기본 UI·코드 식별자·공개 API는 영어.
+- SwiftUI 호스트 + Safari Web Extension(MV3), 웹 코드는 순수 JavaScript/CSS.
+- 먼저 `docs/harness/STATE.md`를 읽고 현재 작업 파일만 검색한다.
+- `SafariWebExtension/`: 자동/플로팅 제어와 레이아웃 PoC, `Tests/`: 자동 검사와 실험 페이지.
+- `scripts/`: 검사와 Hook, `docs/adr/`: 결정, `docs/technical/`: 기술 근거.
+- Xcode 호스트 프로젝트는 Apple 변환기가 생성한 결과만 사용한다.
+- `bash scripts/harness-smoke.sh`: 설정/Hook 자체 검사.
+- `bash scripts/run-simulator.sh`: Duo 선택/부팅·빌드·설치·Device Hub 실행.
+- `bash scripts/check-fast.sh`: 경량 검사와 자동 테스트(빌드/실행 아님).
+- `bash scripts/check-full.sh`: 경량 검사 + 실제 Xcode 빌드; 환경 부족은 BLOCKED.
+- Safari 실험: `docs/technical/TEST_STRATEGY.md`의 절차를 따른다.
+- Ponytail 플러그인 기본 `full`. 설치 방법은 `docs/harness/CONFIGURATION.md`.
+- 플러그인 규칙을 여기에 복사하지 않는다. 일반 검토는 `/ponytail-review`.
+- 새 코드 전 기존 구현/표준 기능을 찾고 변경이 닿는 호출부와 테스트를 확인한다.
+- 하네스 흐름: 범위 → 필요한 문맥 → ADR → 최소 구현 → 검사 → 상태 갱신.
+- 초기 ADR-001~003과 PoC 성공 기준을 먼저 확인한다.
+- 기존 ADR을 우선한다. 중요한 결정만 해당 ADR 변경 또는 새 ADR로 기록한다.
+- 전체 저장소·전체 ADR·전체 테스트 로그를 매번 로딩하지 않는다.
+- 레이아웃 작업 때만 `docs/technical/VIEWPORT.md`, `LAYOUT_ENGINE.md`를 읽는다.
+- 확장 권한/통신 작업 때만 `docs/technical/EXTENSION.md`를 읽는다.
+- API 근거는 `docs/technical/WEBKIT.md`; 바뀐 지원 범위만 재조사한다.
+- 단순 작업은 메인이 처리한다. 독립된 대량 작업만 위임, 동시 Subagent 최대 2개.
+- 역할 정의는 `.claude/agents/`, 모델 정책은 `docs/harness/MODEL_ROUTING.md`.
+- 비용/토큰은 실제 제공값만 사용한다. 정책: `docs/harness/TOKEN_POLICY.md`.
+- 완료 조건: 구현·관련 검사·회귀 확인·불필요 코드 검토·결정 기록·STATE 갱신.
+- 빌드/실기기/확장 로딩 검사를 못 했으면 미검증으로 표시한다.
+- DOM 너비 증가를 Safari 시스템 UI 뒤 실제 렌더링 성공으로 간주하지 않는다.
+- PoC가 실제 Safari에서 통과하기 전 제품 확장 엔진과 Smart Mode를 확정하지 않는다.
+- 최소 권한, 로컬 설정만 저장. 페이지 입력·로그인·방문기록 저장 금지.
+- 원격 스크립트 다운로드 실행 금지. 비밀 파일과 개인 서명 설정은 커밋 금지.
+- 공개 저장소 생성·push·App Store 업로드는 별도 사용자 승인 필요.
+- 보고 형식: 완료 / 변경 / 검증 / 다음. 실패 시 원인과 필요한 로그만 제시한다.

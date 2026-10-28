@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "DUYO",
+  "version": "0.1.0",
+  "description": "Experimental Safari width expansion with automatic application and optional floating controls.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "poc.js",
+        "settings.js",
+        "auto.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "DUYO",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/icon-128.png",
+      "256": "icons/icon-256.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "icons": {
+    "128": "icons/icon-128.png",
+    "256": "icons/icon-256.png"
+  }
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DUYO</title>
+<link rel="stylesheet" href="popup.css">
+<body>
+  <p class="intro">More room for the web.</p>
+  <div class="settings" aria-label="Global settings">
+  <label class="setting"><input id="automatic" type="checkbox" switch><span>Automatically apply on all websites</span></label>
+  <label class="setting"><input id="floating" type="checkbox" switch><span>Show floating button on outer screen</span></label>
+  </div>
+  <p class="caption">Applies to websites you allow in Safari.</p>
+  <label for="experiment">Mode</label>
+  <select id="experiment">
+    <option value="full-width">Full Width</option>
+    <option value="protected-media">Protected background</option>
+    <option value="measure">Measure and restore</option>
+    <option value="document-width">A — Document width</option>
+    <option value="css-overflow">B/D — Width and overflow clip</option>
+    <option value="scroll-lock">D — Horizontal scroll control</option>
+    <option value="media-only">C — Marked images and backgrounds</option>
+    <option value="viewport-cover">viewport-fit=cover</option>
+    <option value="snapshot">Inspect current layout</option>
+    <option value="off">OFF — Restore page</option>
+  </select>
+  <p class="caption">Full Width can place content behind Safari controls. Choose Protected background to preserve text width.</p>
+  <details id="diagnostics">
+  <summary>Advanced experiments</summary>
+  <p class="caption">Development preview. Compatibility is still being tested. Left-edge expansion is unavailable.</p>
+  <label for="extra">Extra width (CSS px)</label>
+  <input id="extra" type="number" min="0" max="256" value="80" step="1">
+
+  <pre id="result"></pre>
+  </details>
+  <p class="privacy">Settings stay on this device.</p>
+  <button id="run" type="button" disabled>Apply</button>
+  <p id="feedback" role="status" aria-live="polite"></p>
+  <script src="settings.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DUYO Safari 실험</title>
+<style>
+  :root { color-scheme: light dark; font: -apple-system-body; }
+  body { margin: 0; }
+  main { padding: 16px; }
+  header { position: sticky; top: 0; padding: 12px; background: Canvas; z-index: 1; }
+  button, input, select { font: inherit; min-height: 44px; margin: 4px; }
+  .media { height: 160px; background: repeating-linear-gradient(90deg, #3467ab 0 20px, #edc95a 20px 40px); }
+  img { display: block; width: 100%; max-width: 100%; height: 160px; }
+  article { max-width: 42rem; margin: auto; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  #fixed { position: fixed; bottom: env(safe-area-inset-bottom, 0px); right: env(safe-area-inset-right, 0px); }
+</style>
+<body>
+<header>DUYO · <a href="#article">본문</a> · <button id="tap">탭 횟수: 0</button></header>
+<main>
+  <h1>Safari 렌더링 실험</h1>
+  <p>줄무늬의 오른쪽 끝, Safari 조작 버튼, 카메라 아래 본문과 버튼을 전후 비교하세요.</p>
+  <label>실험 <select id="experiment">
+    <option value="measure">기준 측정</option>
+    <option value="document-width">A: 문서 폭</option>
+    <option value="css-overflow">B/D: CSS overflow</option>
+    <option value="scroll-lock">D: 가로 이동 억제</option>
+    <option value="protected-media">C/D — 배경 확장·본문 보호</option>
+        <option value="media-only">C: 이미지·배경</option>
+    <option value="viewport-cover">viewport-fit</option>
+    <option value="off">F: OFF</option>
+  </select></label>
+  <button id="run">실험 적용</button><button id="snapshot">현재 측정</button>
+  <p>이 페이지의 버튼은 DOM 로직만 검사합니다. Safari 확장 주입은 별도로 팝업에서 확인하세요.</p>
+  <pre id="result" role="status" aria-live="polite"></pre>
+  <div class="media" data-duyo-poc-media role="img" aria-label="배경 너비 확인용 줄무늬"></div>
+  <img data-duyo-poc-media alt="이미지 양쪽 끝과 텍스트 겹침 확인" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='160'%3E%3Crect width='600' height='160' fill='%232458a0'/%3E%3Cpath d='M0 0L600 160M600 0L0 160' stroke='%23fff' stroke-width='8'/%3E%3C/svg%3E">
+  <article id="article">
+    <h2>읽기 영역</h2>
+    <p>본문은 이미지 폭만 바꾸는 실험에서 이동하거나 넓어지면 안 됩니다. 핀치 확대와 회전 후에도 읽기·선택·링크 탭이 가능해야 합니다.</p>
+    <label>키보드 실험 <input placeholder="저장하지 않는 테스트 입력"></label>
+    <p style="min-height: 100dvh">세로 스크롤 후에도 가로 흔들림과 Safari 버튼 아래 가림을 검사합니다.</p>
+    <a href="#">페이지 상단으로</a>
+  </article>
+</main>
+<button id="fixed">고정 버튼</button>
+<script src="../SafariWebExtension/poc.js"></script>
+<script src="fixture.js"></script>
+</body>
+</html>

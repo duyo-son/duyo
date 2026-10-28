@@ -1,0 +1,13 @@
+---
+paths:
+  - "SafariWebExtension/manifest.json"
+  - "SafariWebExtension/popup.js"
+  - "SafariWebExtension/auto.js"
+  - "SafariWebExtension/settings.js"
+  - "scripts/hook.py"
+  - "**/*.entitlements"
+  - ".claude/settings.json"
+---
+- 메시지와 URL은 신뢰 경계에서 검증한다. 원격 코드·eval·사용자 입력 수집을 추가하지 않는다.
+- 웹사이트 접근은 필요를 ADR에 기록한 뒤 추가한다. 전역 자동 적용/플로팅은 ADR-004와 Safari 허용 범위를 따른다.
+- Hook은 보조 장치이며 셸 보안 샌드박스가 아니다. 정상 작업을 추측으로 차단하지 않는다.
